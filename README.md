@@ -5,4 +5,4 @@
 **lagged_cov.m** -- creates multivariate empirical cross-covariance functions (i.e., in units of the sampling interval) \
 **acf_hwhm.m** -- estimates intrinsic timescale for each time series, computed as half of the full-width-at-half-maximum of the autocorrelation function (from lagged_cov.m) after spline fitting
 
-**Please direct questions to ryanvraut@gmail.com**
+**Please direct questions to ryanvraut [at] gmail.com**
