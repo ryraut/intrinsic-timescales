@@ -3,7 +3,7 @@
 %
 %% Setup
 % Set parameters
-num_nodes = 264;    % number of time series 
+num_nodes = 264;    % number of time series (i.e., the spatial dimension)
 outdir = '';    % set directory for saving out images here
 mkdir(outdir)
 lags = -6:6;    % range of TR shifts; should be sufficient to allow for all autocovariance functions (ACFs) to decay below .5
@@ -31,10 +31,10 @@ for s = 1:numel(subjects)
     subj_peak = subj_lags; % peak correlation (correlation at optimal lag)
     
     
-    BOLD = importdata(''); % read in time series matrix
-    good = importdata(''); % read in spatial mask if desired
+    BOLD = importdata(''); % read in time series matrix (time points x num_nodes)
+    good = importdata(''); % read in spatial mask if desired (vector of length = num_nodes; make sure this is cast as type "logical")
     
-    % read in temporal mask/motion time series (e.g., FD or DVARS)
+    % read in temporal mask/motion time series (e.g., FD or DVARS); make sure this is cast as type "logical"
     format = dlmread('') <= motion_thresh;
     
     % ignore pre-steady-state frames
@@ -43,7 +43,7 @@ for s = 1:numel(subjects)
     FORMAT = create_blocks(format,min_block_durn,tr);
     
     %% Construct ACF
-    ACFs = single(zeros(num_nodes,numel(lags)));
+    ACFs = single(zeros(sum(good),numel(lags)));
     nblocks = numel(FORMAT);
     nframes = 0;
     
